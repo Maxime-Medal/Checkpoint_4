@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// first with name and table of database  -->  npx prisma migrate dev --name init  <--
+
+generator client {
+  // binaryTargets = ["native"],
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Resources {
+  id         Int        @id @default(autoincrement())
+  title      String
+  link       String
+  categoryId Int?
+  Category   Category?  @relation(fields: [categoryId], references: [id])
+  favorite   Favorite[]
+}
+
+model Category {
+  id       Int         @id @default(autoincrement())
+  name     String
+  resource Resources[]
+}
+
+model Favorite {
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  resourcesId Int?
+  Resources   Resources? @relation(fields: [resourcesId], references: [id])
+}
