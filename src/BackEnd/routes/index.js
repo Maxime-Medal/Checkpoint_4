@@ -1,9 +1,9 @@
-const homeRouter = require('./home');
-const resourcesRouter = require('./resources');
+const materialsRouter = require('./materials');
+const picturesRouter = require('./pictures');
 
 const setupRoutes = (app) => {
-  app.use('/', resourcesRouter)
-  app.use('/', homeRouter)
+  app.use('/api/', picturesRouter)
+  app.use('/api/', materialsRouter)
 }
 
 

@@ -12,18 +12,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pictures {
-  id           Int         @id @default(autoincrement())
-  title        String
-  link         String
-  details      String      @db.LongText
-  shoot_date   DateTime?   @default(now())
-  categoriesId Int?
-  materialsId  Int?
-  Category     Categories? @relation(fields: [categoriesId], references: [id])
-  Materials    Materials?  @relation(fields: [materialsId], references: [id])
-}
-
 model Categories {
   id       Int        @id @default(autoincrement())
   name     String
@@ -36,4 +24,16 @@ model Materials {
   description String?
   accessories Json?
   pictures    Pictures[]
+}
+
+model Pictures {
+  id           Int         @id @default(autoincrement())
+  title        String
+  link         String
+  details      String?     @db.LongText
+  shoot_date   DateTime?   @default(now())
+  categoriesId Int?
+  materialsId  Int?
+  categories   Categories? @relation(fields: [categoriesId], references: [id])
+  materials    Materials?  @relation(fields: [materialsId], references: [id])
 }
