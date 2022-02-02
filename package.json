@@ -6,7 +6,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "start:server": "nodemon src/BackEnd/app.js",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "db:reset": "prisma migrate reset",
+    "db:seed": "prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",

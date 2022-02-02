@@ -12,24 +12,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Resources {
-  id         Int        @id @default(autoincrement())
-  title      String
-  link       String
-  categoryId Int?
-  Category   Category?  @relation(fields: [categoryId], references: [id])
-  favorite   Favorite[]
+model Pictures {
+  id           Int         @id @default(autoincrement())
+  title        String
+  link         String
+  details      String      @db.LongText
+  shoot_date   DateTime?   @default(now())
+  categoriesId Int?
+  materialsId  Int?
+  Category     Categories? @relation(fields: [categoriesId], references: [id])
+  Materials    Materials?  @relation(fields: [materialsId], references: [id])
 }
 
-model Category {
-  id       Int         @id @default(autoincrement())
+model Categories {
+  id       Int        @id @default(autoincrement())
   name     String
-  resource Resources[]
+  pictures Pictures[]
 }
 
-model Favorite {
+model Materials {
   id          Int        @id @default(autoincrement())
-  createdAt   DateTime   @default(now())
-  resourcesId Int?
-  Resources   Resources? @relation(fields: [resourcesId], references: [id])
+  name        String
+  description String?
+  accessories Json?
+  pictures    Pictures[]
 }
