@@ -1,6 +1,8 @@
 const { PrismaClient } = require('@prisma/client');
 const materialsRouter = require('express').Router();
+const bodyParser = require('body-parser')
 
+materialsRouter.use(bodyParser.json());
 
 const { materials } = new PrismaClient();
 

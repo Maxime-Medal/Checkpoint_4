@@ -1,6 +1,9 @@
 const { PrismaClient } = require('@prisma/client');
 const picturesRouter = require('express').Router();
+const bodyParser = require('body-parser')
 
+picturesRouter.use(bodyParser.json());
+picturesRouter.use(bodyParser.urlencoded({ extended: true }));
 
 const { pictures } = new PrismaClient();
 
